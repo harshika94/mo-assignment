@@ -35,4 +35,27 @@ export const getSearchKeyData = (key: string) => (dispatch: Function) => {
     .catch(response => dispatch(getDealsListError(response.error)));
 };
 
+// Implementation of details page actions
+export const getDealDetailsRequest = () => ({
+  type: "GET_DEAL_DETAILS_REQUEST"
+});
 
+export const getDealDetailsSuccess = (response: Object) => ({
+  type: "GET_DEAL_DETAILS_SUCCESS",
+  payload: { response }
+});
+
+export const getDealDetailsError = (error: Object) => ({
+  type: "GET_DEAL_DETAILS_ERROR",
+  payload: { error }
+});
+
+export const getDealDetailsById = (id: String) => (dispatch: Function) => {
+  dispatch(getDealsListRequest());
+  return axios
+    .get(`https://bakesaleforgood.com/api/deals/${id}`)
+    .then(response => {
+      return dispatch(getDealDetailsSuccess(response.data));
+    })
+    .catch(response => dispatch(getDealDetailsError(response.error)));
+};

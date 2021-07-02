@@ -30,6 +30,28 @@ const dealsReducer = (state = dealsList, action) => {
         success: true,
         list: action.payload.response
       };
+      case "GET_DEAL_DETAILS_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: false,
+        success: false
+      };
+    case "GET_DEAL_DETAILS_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        success: false
+      };
+    case "GET_DEAL_DETAILS_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        success: true,
+        dealDetails: action.payload.response
+      };
     default:
       return dealsList;
   }

@@ -35,7 +35,7 @@ export class DealsListComponent extends Component {
       data = filterdata.map(item => {
         return (
           <li>
-            <Link >{item.title}</Link>
+            <Link to={`/detail/${item.key}`} >{item.title}</Link>
           </li>
         );
       });
@@ -45,7 +45,7 @@ export class DealsListComponent extends Component {
         this.props.listOfDeals.map(item => {
           return (
             <li>
-              <Link>{item.title}</Link>
+              <Link to={`/detail/${item.key}`}>{item.title}</Link>
             </li>
           );
         });
