@@ -19,6 +19,30 @@ export class DealsListComponent extends Component {
     this.props.getSearchKeyData(e.target.value);
   };
 
+  handleEdit = (key, title) => {
+    this.setState({
+      editInputValue: title,
+      editInputKey: key
+    });
+  };
+
+  handleEditInputChange = e => {
+    this.setState({
+      editInputValue: [e.target.value]
+    });
+  };
+
+  updateData = () => {
+    this.props.updateListData(
+      this.state.editInputKey,
+      this.state.editInputValue
+    );
+    this.setState({
+      editInputValue: ""
+    });
+  };
+
+
 
   buildDealsListSection = () => {
     let data = "";
@@ -35,7 +59,13 @@ export class DealsListComponent extends Component {
       data = filterdata.map(item => {
         return (
           <li>
-            <Link to={`/detail/${item.key}`} >{item.title}</Link>
+              <Link to={`/detail/${item.key}`} >{item.title}</Link>
+              <button
+                  value={item.key}
+                  onClick={() => this.handleEdit(item.key, item.title)}
+              >
+                Edit
+              </button>
           </li>
         );
       });
@@ -46,6 +76,12 @@ export class DealsListComponent extends Component {
           return (
             <li>
               <Link to={`/detail/${item.key}`}>{item.title}</Link>
+              <button
+                  value={item.key}
+                  onClick={() => this.handleEdit(item.key, item.title)}
+              >
+                Edit
+              </button>
             </li>
           );
         });
@@ -100,6 +136,15 @@ export class DealsListComponent extends Component {
           onChange={this.handleInputChange}
           name="search"
         ></input>
+        <input
+          id={this.state.searchKey}
+          type="text"
+          placeholder="Edit..."
+          onChange={this.handleEditInputChange}
+          name="Edit"
+          value={this.state.editInputValue}
+          ></input>
+        <button onClick={this.updateData}>Update</button>
         {this.props.loading ? (
           <p>...Loading the list</p>
         ) : (

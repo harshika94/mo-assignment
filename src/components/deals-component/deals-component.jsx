@@ -4,7 +4,8 @@ import {
   DealsListLeftContainer,
   DealsSummaryRightContainer,
   WrapperContainer,
-  DealsListTopContainer
+  DealsListTopContainer,
+  InputWrapperContainer
 } from "./deals-component.styled";
 import DealsSummaryComponent from "../../components/deals-summary-component/deals-summary-component";
 import DealsListComponent from "./deals-list-component";
@@ -16,6 +17,7 @@ export default class DealsComponent extends Component {
       inputValue: ""
     };
   }
+
   buildTobSection = () => {
     return (
       <TopBarContainerStyled>
@@ -23,6 +25,27 @@ export default class DealsComponent extends Component {
         categories.
       </TopBarContainerStyled>
     );
+  };
+
+  handleChange = e => {
+    this.setState({
+      inputValue: e.target.value
+    });
+  };
+
+  handleClick = inputValue => {
+    const newDeal = {
+      key: "ac9bd5ec830197693b93cc1bb86a5487",
+      title: inputValue,
+      price: 37500,
+      cause: {
+        name: "New Item Added"
+      }
+    };
+    this.props.addNewDeal(newDeal);
+    this.setState({
+      inputValue: ""
+    });
   };
 
   render() {
@@ -47,7 +70,17 @@ export default class DealsComponent extends Component {
               getSearchKeyData={getSearchKeyData}
               updateListData={updateListData}
             />
-          
+          <InputWrapperContainer>
+            <input
+              id={this.state.inputValue}
+              value={this.state.inputValue}
+              placeholder="Add another deal"
+              onChange={this.handleChange}
+            ></input>
+            <button onClick={() => this.handleClick(this.state.inputValue)}>
+              ADD
+            </button>
+          </InputWrapperContainer>
           </DealsListLeftContainer>
           <DealsSummaryRightContainer>
             <DealsSummaryComponent listOfDeals={listOfDeals} />

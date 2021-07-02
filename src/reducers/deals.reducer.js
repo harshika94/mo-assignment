@@ -52,8 +52,31 @@ const dealsReducer = (state = dealsList, action) => {
         success: true,
         dealDetails: action.payload.response
       };
-    default:
-      return dealsList;
+      case "ADD_NEW_DEAL":
+        const newObj = state.list;
+        newObj.push(action.payload);
+        return {
+          ...state,
+          list: newObj
+        };
+      case "UPDATE_DEAL":
+        const updatedObj = state.list;
+        updatedObj.map(item => {
+          if (item.key === action.payload.key) {
+            item.title = action.payload.title;
+          }
+        });
+        return {
+          ...state,
+          list: updatedObj
+        };
+  
+        case "RESET":
+          return {
+            ...state
+          };
+        default:
+          return dealsList;
   }
 };
 

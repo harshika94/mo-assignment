@@ -5,7 +5,8 @@ import { bindActionCreators } from "redux";
 import {
   getDealsList,
   getSearchKeyData,
-  
+  addNewDeal,
+  updateListData
 } from "../../actions/deals.action.js";
 import { withRouter } from "react-router-dom";
 
@@ -17,7 +18,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getDealsList: bindActionCreators(getDealsList, dispatch),
   getSearchKeyData: bindActionCreators(getSearchKeyData, dispatch),
- 
+  addNewDeal: bindActionCreators(addNewDeal, dispatch),
+  updateListData: bindActionCreators(updateListData, dispatch)
 });
 
 export class DealsView extends React.Component {
@@ -30,6 +32,8 @@ export class DealsView extends React.Component {
       dealsList,
       loading,
       getSearchKeyData,
+      addNewDeal,
+      updateListData
       } = this.props;
     return (
       <div>
@@ -37,7 +41,9 @@ export class DealsView extends React.Component {
           listOfDeals={dealsList}
           loading={loading}
           getSearchKeyData={getSearchKeyData}
-           />
+          addNewDeal={addNewDeal}
+          updateListData={updateListData}
+        />
       </div>
     );
   }

@@ -59,3 +59,19 @@ export const getDealDetailsById = (id: String) => (dispatch: Function) => {
     })
     .catch(response => dispatch(getDealDetailsError(response.error)));
 };
+
+//Implementation of Add/Edit functionality
+
+export const addNewDeal = (newDeal: Object) => ({
+  type: "ADD_NEW_DEAL",
+  payload: newDeal
+});
+
+export const updateListData = (key: string, title: string) => ({
+  type: "UPDATE_DEAL",
+  payload: { key, title }
+});
+
+export const reset = () => ({
+  type: "RESET"
+});
